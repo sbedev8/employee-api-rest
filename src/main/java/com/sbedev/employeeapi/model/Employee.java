@@ -1,15 +1,14 @@
 package com.sbedev.employeeapi.model;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * This class represents an employee in our system.
  */
+@Entity
+@Table(name = "employees")
 public class Employee implements Serializable {
 
     /**
@@ -35,6 +34,7 @@ public class Employee implements Serializable {
     /**
      * Email address of the employee
      */
+    @Column(name = "email")
     private String email;
 
     /**

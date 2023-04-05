@@ -9,6 +9,6 @@ public class HomeController {
     @ResponseBody
     @RequestMapping("/")
     public String welcome() {
-        return "Welcome to Employee Rest API";
+        return "Welcome to Employee API Rest !!!";
     }
 }
