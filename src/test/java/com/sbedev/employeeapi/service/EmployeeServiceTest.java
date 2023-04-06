@@ -9,7 +9,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +18,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-//@SpringBootTest
 @ExtendWith(MockitoExtension.class)
 public class EmployeeServiceTest {
 
@@ -29,64 +27,45 @@ public class EmployeeServiceTest {
     @InjectMocks
     private EmployeeService employeeService;
 
+    private Employee employee;
+
     @BeforeEach
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
+        employee = new Employee();
+        employee.setId(1L);
+        employee.setFirstName("John");
+        employee.setLastName("Doe");
+        employee.setEmail("johndoe@example.com");
     }
 
     @Test
     public void testCreateEmployee() {
         Employee employee = new Employee();
-        employee.setId(1L);
-        employee.setFirstName("John");
-        employee.setLastName("Doe");
-        employee.setEmail("johndoe@example.com");
-
         when(employeeRepository.save(any(Employee.class))).thenReturn(employee);
-
         Employee result = employeeService.createEmployee(employee);
-
         assertEquals(employee, result);
     }
 
     @Test
     public void testGetEmployeeById() {
-        Employee employee = new Employee();
-        employee.setId(1L);
-        employee.setFirstName("John");
-        employee.setLastName("Doe");
-        employee.setEmail("johndoe@example.com");
-
         when(employeeRepository.findById(1L)).thenReturn(Optional.of(employee));
-
-        Optional<Employee> result = employeeService.getEmployeeById(1L);
-
-        assertEquals(Optional.of(employee), result);
+        Optional<Employee> expectedEmployee = employeeService.getEmployeeById(1L);
+        assertEquals(expectedEmployee, Optional.of(employee));
     }
 
     @Test
     public void testUpdateEmployee() {
-        Employee employee = new Employee();
-        employee.setId(1L);
-        employee.setFirstName("John");
-        employee.setLastName("Doe");
-        employee.setEmail("johndoe@example.com");
-
+        employee.setEmail("johndoe@mail.com");
         when(employeeRepository.save(any(Employee.class))).thenReturn(employee);
 
-        Employee result = employeeService.updateEmployee(employee);
-
-        assertEquals(employee, result);
+        Employee expectedEmployee = employeeService.updateEmployee(employee);
+        assertEquals(expectedEmployee, employee);
+        assertEquals(expectedEmployee.getEmail(),"johndoe@maicl.com");
     }
 
     @Test
     public void testDeleteEmployee() {
-        Employee employee = new Employee();
-        employee.setId(1L);
-        employee.setFirstName("John");
-        employee.setLastName("Doe");
-        employee.setEmail("johndoe@example.com");
-
         employeeService.deleteEmployee(employee);
 
         // Verify that the delete method was called with the employee object
@@ -95,11 +74,6 @@ public class EmployeeServiceTest {
 
     @Test
     public void testGetAllEmployees() {
-        Employee employee1 = new Employee();
-        employee1.setId(1L);
-        employee1.setFirstName("John");
-        employee1.setLastName("Doe");
-        employee1.setEmail("johndoe@example.com");
 
         Employee employee2 = new Employee();
         employee2.setId(2L);
@@ -108,7 +82,7 @@ public class EmployeeServiceTest {
         employee2.setEmail("bobsmith@example.com");
 
         List<Employee> employeeList = new ArrayList<>();
-        employeeList.add(employee1);
+        employeeList.add(employee);
         employeeList.add(employee2);
 
         when(employeeRepository.findAll()).thenReturn(employeeList);
