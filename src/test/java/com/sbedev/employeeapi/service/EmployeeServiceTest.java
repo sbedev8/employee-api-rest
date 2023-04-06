@@ -1,5 +1,6 @@
 package com.sbedev.employeeapi.service;
 
+import com.sbedev.employeeapi.exception.ResourceNotFoundException;
 import com.sbedev.employeeapi.model.Employee;
 import com.sbedev.employeeapi.repository.EmployeeRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,8 +16,11 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
+import static org.mockito.BDDMockito.given;
+
 
 @ExtendWith(MockitoExtension.class)
 public class EmployeeServiceTest {
@@ -61,7 +65,7 @@ public class EmployeeServiceTest {
 
         Employee expectedEmployee = employeeService.updateEmployee(employee);
         assertEquals(expectedEmployee, employee);
-        assertEquals(expectedEmployee.getEmail(),"johndoe@maicl.com");
+        assertEquals(expectedEmployee.getEmail(),"johndoe@mail.com");
     }
 
     @Test
@@ -70,6 +74,27 @@ public class EmployeeServiceTest {
 
         // Verify that the delete method was called with the employee object
         verify(employeeRepository, times(1)).delete(employee);
+    }
+
+    @Test
+    void deleteEmployeeById_ShouldDeleteEmployee_WhenEmployeeExists() {
+        // given
+        Long id = 1L;
+        given(employeeRepository.findById(id)).willReturn(Optional.of(employee));
+        employeeService.deleteEmployeeById(id);
+        verify(employeeRepository, times(1)).delete(employee);
+    }
+
+    @Test
+    void deleteEmployeeById_ShouldThrowResourceNotFoundException_WhenEmployeeDoesNotExist() {
+        // given
+        Long id = 1L;
+        given(employeeRepository.findById(id)).willReturn(Optional.empty());
+
+        // when / then
+        assertThrows(ResourceNotFoundException.class, () -> {
+            employeeService.deleteEmployeeById(id);
+        });
     }
 
     @Test
@@ -91,4 +116,5 @@ public class EmployeeServiceTest {
 
         assertEquals(employeeList, result);
     }
+
 }

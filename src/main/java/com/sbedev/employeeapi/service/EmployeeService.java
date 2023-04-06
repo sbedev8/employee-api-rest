@@ -1,5 +1,6 @@
 package com.sbedev.employeeapi.service;
 
+import com.sbedev.employeeapi.exception.ResourceNotFoundException;
 import com.sbedev.employeeapi.model.Employee;
 import com.sbedev.employeeapi.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +52,16 @@ public class EmployeeService {
      * @param employee the employee to delete.
      */
     public void deleteEmployee(Employee employee) {
+        employeeRepository.delete(employee);
+    }
+
+    /**
+     * Deletes an employee.
+     * @param id the employee id to delete.
+     */
+    public void deleteEmployeeById(Long id) {
+        Employee employee = employeeRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Employee not exist with id: " + id));
         employeeRepository.delete(employee);
     }
 
