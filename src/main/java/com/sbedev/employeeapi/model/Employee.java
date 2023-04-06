@@ -37,6 +37,16 @@ public class Employee implements Serializable {
     @Column(name = "email")
     private String email;
 
+    public Employee(Long id, String firstName, String lastName, String email) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+    }
+
+    public Employee() {
+    }
+
     /**
      * Gets the unique identifier for the employee.
      *

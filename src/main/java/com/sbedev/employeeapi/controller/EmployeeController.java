@@ -4,10 +4,7 @@ import com.sbedev.employeeapi.exception.ResourceNotFoundException;
 import com.sbedev.employeeapi.model.Employee;
 import com.sbedev.employeeapi.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
