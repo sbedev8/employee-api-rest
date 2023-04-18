@@ -15,7 +15,7 @@ import java.util.Optional;
  */
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/employees")
+@RequestMapping("/api/employees")
 public class EmployeeController {
 
     private final EmployeeService employeeService;

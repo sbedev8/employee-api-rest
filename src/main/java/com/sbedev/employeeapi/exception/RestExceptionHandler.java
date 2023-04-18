@@ -15,6 +15,12 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return buildResponseEntity(error);
     }
 
+    @ExceptionHandler(FileException.class)
+    public ResponseEntity<Object> handleFileException(FileException ex) {
+        ErrorResponse error = new ErrorResponse(HttpStatus.NOT_FOUND, ex.getMessage());
+        return buildResponseEntity(error);
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleException(Exception ex) {
         ErrorResponse error = new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, "Une erreur s'est produite lors du traitement de la demande.");
