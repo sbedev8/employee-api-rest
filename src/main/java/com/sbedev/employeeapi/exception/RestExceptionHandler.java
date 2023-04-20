@@ -17,7 +17,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(FileException.class)
     public ResponseEntity<Object> handleFileException(FileException ex) {
-        ErrorResponse error = new ErrorResponse(HttpStatus.NOT_FOUND, ex.getMessage());
+        ErrorResponse error = new ErrorResponse(HttpStatus.BAD_REQUEST, ex.getMessage());
         return buildResponseEntity(error);
     }
 
