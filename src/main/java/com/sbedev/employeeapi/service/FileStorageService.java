@@ -16,7 +16,7 @@ import java.util.Objects;
 @Transactional
 public class FileStorageService {
 
-    private static final long MAX_FILE_SIZE = 2 * 1024 * 1024; // 2 MB
+    private static final long MAX_FILE_SIZE = 20 * 1024 * 1024; // 20 MB
 
     @Autowired
     private FileRepository fileRepository;
