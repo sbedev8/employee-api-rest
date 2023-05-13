@@ -3,7 +3,6 @@ package com.sbedev.employeeapi.controller;
 import com.sbedev.employeeapi.exception.ResourceNotFoundException;
 import com.sbedev.employeeapi.model.Employee;
 import com.sbedev.employeeapi.service.EmployeeService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,7 +27,6 @@ public class EmployeeController {
      * Constructs a new instance of EmployeeController with the given EmployeeService.
      * @param employeeService the employee service to use.
      */
-    @Autowired
     public EmployeeController(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
