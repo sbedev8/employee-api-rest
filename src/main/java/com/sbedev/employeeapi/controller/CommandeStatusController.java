@@ -5,6 +5,7 @@ import com.sbedev.employeeapi.service.CommandeStatusService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @CrossOrigin("*")
 @RestController
@@ -27,9 +28,14 @@ public class CommandeStatusController {
 //        return commandeStatusRepository.findAll();
 //    }
 
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public CommandeStatusDTO getAllStatusById(@PathVariable long id){
         return commandeStatusService.getCommandesByStatus(id);
+    }
+
+    @GetMapping("/status/{status}")
+    public CommandeStatusDTO getAllStatusByStatus(@PathVariable String status){
+        return commandeStatusService.getCommandesByStatus(status);
     }
 
 

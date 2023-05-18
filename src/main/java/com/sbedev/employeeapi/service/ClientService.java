@@ -1,6 +1,7 @@
 package com.sbedev.employeeapi.service;
 
 import com.sbedev.employeeapi.model.Client;
+import com.sbedev.employeeapi.model.Commande;
 import com.sbedev.employeeapi.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,9 +29,15 @@ public class ClientService {
         return clientRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Client not found"));
     }
 
+    public List<Commande> getListCommandsByClientId(Long id) {
+        Client client = clientRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Client not found"));
+        List<Commande> commandes = client.getCommandes();
+        return commandes;
+    }
+
     public List<Client> getAllClients(){
         List<Client> all = this.clientRepository.findAll();
-        System.out.println("all");
+        System.out.println("all clients");
         return all;
     }
 

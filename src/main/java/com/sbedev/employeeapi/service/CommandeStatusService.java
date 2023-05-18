@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @Transactional
 public class CommandeStatusService {
 
-    CommandeStatusRepository commandeStatusRepository;
+    private CommandeStatusRepository commandeStatusRepository;
 
     public CommandeStatusService(CommandeStatusRepository commandeStatusRepository) {
         this.commandeStatusRepository = commandeStatusRepository;
@@ -43,7 +43,11 @@ public class CommandeStatusService {
 
     public CommandeStatusDTO getCommandesByStatus(long idstatus) {
         CommandeStatus commandesByStatus = this.commandeStatusRepository.findById(idstatus).orElseThrow(() -> new ResourceNotFoundException("not found" + idstatus));
-        System.out.println("################ commandesByStatus ###################");
+        return toDTO(commandesByStatus);
+    }
+
+    public CommandeStatusDTO getCommandesByStatus(String status) {
+        CommandeStatus commandesByStatus = this.commandeStatusRepository.findByStatus(status.toUpperCase());
         return toDTO(commandesByStatus);
     }
 

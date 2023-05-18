@@ -64,4 +64,13 @@ public class CommandeStatus implements Serializable {
     public int hashCode() {
         return Objects.hash(getId());
     }
+
+    @Override
+    public String toString() {
+        return "CommandeStatus{" +
+                "id=" + id +
+                ", status='" + status + '\'' +
+                ", commandes=" + commandes +
+                '}';
+    }
 }

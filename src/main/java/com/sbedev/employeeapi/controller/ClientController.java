@@ -1,6 +1,7 @@
 package com.sbedev.employeeapi.controller;
 
 import com.sbedev.employeeapi.model.Client;
+import com.sbedev.employeeapi.model.Commande;
 import com.sbedev.employeeapi.service.ClientService;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +28,11 @@ public class ClientController {
     @GetMapping("/{id}")
     public Optional<Client> getClientById(@PathVariable  Long id) {
         return Optional.ofNullable(clientService.getClientById(id));
+    }
+
+    @GetMapping("/{id}/commands")
+    public List<Commande> getListCommandsByClient(@PathVariable  Long id) {
+        return clientService.getListCommandsByClientId(id);
     }
 
 

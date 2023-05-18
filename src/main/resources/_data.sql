@@ -17,4 +17,3 @@
 --
 --INSERT INTO commande (datecmd, client_idclient, status_idcmdstatus) VALUES (CURRENT_DATE, 2, 5);
 --INSERT INTO commande (datecmd, client_idclient, status_idcmdstatus) VALUES (CURRENT_DATE, 2, 4);
-

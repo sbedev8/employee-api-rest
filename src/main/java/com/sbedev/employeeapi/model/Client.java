@@ -1,6 +1,7 @@
 package com.sbedev.employeeapi.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -26,10 +27,11 @@ public class Client implements Serializable {
     /**
      * pour résoudre le problème de récursivité infinie causé par Jackson lors de
      * la sérialisation/désérialisation des modèles avec des relations bidirectionnelles.
-     * @JsonManagedReference &&  @JsonBackReference
+     * // @JsonManagedReference &&  @JsonBackReference
      */
     @OneToMany(mappedBy = "client",fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
+//    @JsonManagedReference
+    @JsonIgnore
     private List<Commande> commandes = new ArrayList<>();
 
     public Long getId() {
