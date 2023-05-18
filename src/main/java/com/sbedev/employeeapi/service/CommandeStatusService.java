@@ -3,10 +3,10 @@ package com.sbedev.employeeapi.service;
 import com.sbedev.employeeapi.dto.ClientDTO;
 import com.sbedev.employeeapi.dto.CommandeDTO;
 import com.sbedev.employeeapi.dto.CommandeStatusDTO;
+import com.sbedev.employeeapi.exception.ResourceNotFoundException;
 import com.sbedev.employeeapi.model.Client;
 import com.sbedev.employeeapi.model.CommandeStatus;
 import com.sbedev.employeeapi.repository.CommandeStatusRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,8 +25,8 @@ public class CommandeStatusService {
 
     public List<CommandeStatusDTO> getAllCommandeStatuses() {
         return commandeStatusRepository.findAll().stream()
-                .map(this::toDTO)
 //                .map( st -> toDTO(st))
+                .map(this::toDTO)
                 .collect(Collectors.toList());
     }
 
@@ -41,9 +41,10 @@ public class CommandeStatusService {
         return new CommandeStatusDTO(commandeStatus.getId(), commandeStatus.getStatus(), commandeDTOs);
     }
 
-    public List<CommandeStatusDTO> getCommandesByStatus(long idstatus){
-        List<CommandeStatus> commandesByStatus = this.commandeStatusRepository.findByStatusId(idstatus);
-        return commandesByStatus.stream().map(this::toDTO).collect(Collectors.toList());
+    public CommandeStatusDTO getCommandesByStatus(long idstatus) {
+        CommandeStatus commandesByStatus = this.commandeStatusRepository.findById(idstatus).orElseThrow(() -> new ResourceNotFoundException("not found" + idstatus));
+        System.out.println("################ commandesByStatus ###################");
+        return toDTO(commandesByStatus);
     }
 
 

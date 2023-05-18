@@ -25,7 +25,7 @@ public class ClientController {
 
 
     @GetMapping("/{id}")
-    public Optional<Client> getCLientById(@PathVariable  Long id) {
+    public Optional<Client> getClientById(@PathVariable  Long id) {
         return Optional.ofNullable(clientService.getClientById(id));
     }
 
