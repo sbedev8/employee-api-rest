@@ -106,7 +106,7 @@ public class FileEncryptor {
 			// Lire le fichier PDF original
 			String resourcePath = Paths.get( "src", "main", "resources" ).toString();
 			InputStream is = new FileInputStream( resourcePath + "/doc.pdf" );
-			//			InputStream is = encryptor.getClass().getResourceAsStream( "/doc.pdf" );
+			//			InputStream is = this.getClass().getResourceAsStream( "/doc.pdf" );
 			ByteArrayOutputStream originalData = new ByteArrayOutputStream();
 
 			byte[] buffer = new byte[1024];
